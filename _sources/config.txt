@@ -1,0 +1,4 @@
+lala config module
+==================
+
+.. automodule:: lala.config

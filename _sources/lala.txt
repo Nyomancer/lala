@@ -1,0 +1,4 @@
+lala irc bot
+============
+
+.. automodule:: lala

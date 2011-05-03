@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>lala &mdash; lala v0.1.4 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="lala v0.1.4 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">lala v0.1.4 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for lala</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python2</span>
+<span class="c"># coding: utf-8</span>
+<span class="kn">import</span> <span class="nn">lurklib</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">logging.handlers</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">basename</span><span class="p">,</span> <span class="n">join</span>
+<span class="kn">from</span> <span class="nn">lala</span> <span class="kn">import</span> <span class="n">util</span>
+
+
+<div class="viewcode-block" id="Plugger"><a class="viewcode-back" href="../lala.html#lala.Plugger">[docs]</a><span class="k">class</span> <span class="nc">Plugger</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bot</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">bot</span> <span class="o">=</span> <span class="n">bot</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span><span class="n">path</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">path</span> <span class="o">=</span> <span class="n">path</span>
+
+<div class="viewcode-block" id="Plugger.load_plugins"><a class="viewcode-back" href="../lala.html#lala.Plugger.load_plugins">[docs]</a>    <span class="k">def</span> <span class="nf">load_plugins</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">/*.py&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Loading </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">plugin</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_plugin</span><span class="p">(</span><span class="n">basename</span><span class="p">(</span><span class="n">plugin</span><span class="p">),</span> <span class="n">py</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Plugger.load_plugin"><a class="viewcode-back" href="../lala.html#lala.Plugger.load_plugin">[docs]</a>    <span class="k">def</span> <span class="nf">load_plugin</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">py</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="c"># Is there &quot;.py in name?</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">py</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">name</span> <span class="o">+</span> <span class="s">&quot;.py&quot;</span>
+
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Trying to load </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+        <span class="n">plug</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="n">name</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span>
+
+</div></div>
+<div class="viewcode-block" id="Bot"><a class="viewcode-back" href="../lala.html#lala.Bot">[docs]</a><span class="k">class</span> <span class="nc">Bot</span><span class="p">(</span><span class="n">lurklib</span><span class="o">.</span><span class="n">Client</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">server</span><span class="p">,</span>
+                <span class="n">port</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">nick</span><span class="o">=</span><span class="s">&#39;lalal&#39;</span><span class="p">,</span>
+                <span class="n">user</span><span class="o">=</span><span class="s">&#39;lalala&#39;</span><span class="p">,</span>
+                <span class="n">real_name</span><span class="o">=</span><span class="s">&#39;lalilu&#39;</span><span class="p">,</span>
+                <span class="n">password</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+                <span class="n">tls</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                <span class="n">tls_verify</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                <span class="n">encoding</span><span class="o">=</span><span class="s">&#39;UTF-8&#39;</span><span class="p">,</span>
+                <span class="n">hide_called_events</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                <span class="n">UTC</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                <span class="n">channels</span><span class="o">=</span><span class="p">[],</span>
+                <span class="n">version</span><span class="o">=</span><span class="s">&quot;lala 0.1.4&quot;</span><span class="p">,</span>
+                <span class="n">debug</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                <span class="n">debugformat</span><span class="o">=</span>
+                <span class="s">&quot;</span><span class="si">%(levelname)s</span><span class="s"> </span><span class="si">%(filename)s</span><span class="s">: </span><span class="si">%(funcName)s</span><span class="s">:</span><span class="si">%(lineno)d</span><span class="s"> </span><span class="si">%(message)s</span><span class="s">&quot;</span><span class="p">,</span>
+                <span class="n">plugins</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;last&#39;</span><span class="p">,</span> <span class="s">&#39;quotes&#39;</span><span class="p">,</span> <span class="s">&#39;base&#39;</span><span class="p">],</span>
+                <span class="n">nickserv</span><span class="o">=</span><span class="bp">None</span>
+                <span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Create a new :py:class:`lala.Bot` instance</span>
+
+<span class="sd">        :param server: Server to connect to</span>
+<span class="sd">        :param port: Server port</span>
+<span class="sd">        :param nick: The Bots nick</span>
+<span class="sd">        :param user: User to specify in the *USER* message</span>
+<span class="sd">        :param real_name: Real name</span>
+<span class="sd">        :param password: Server password</span>
+<span class="sd">        :param tls: Whether or not to use TLS</span>
+<span class="sd">        :param tls_verify: Whether or not to verify the TLS certificate</span>
+<span class="sd">        :param encoding: Encoding to use</span>
+<span class="sd">        :param channels: List of channels to join after connecting</span>
+<span class="sd">        :param version: Version of the bot. Will be used in *CTCP VERSION*</span>
+<span class="sd">        replies</span>
+<span class="sd">        :param plugins: List of plugins to load</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&quot;MessageLog&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">debug</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">format</span><span class="o">=</span><span class="n">debugformat</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_channels</span> <span class="o">=</span> <span class="n">channels</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_callbacks</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_regexes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_cbprefix</span> <span class="o">=</span> <span class="s">&quot;!&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__version__</span> <span class="o">=</span> <span class="n">version</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_nickserv_password</span> <span class="o">=</span> <span class="n">nickserv</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugger</span> <span class="o">=</span> <span class="n">Plugger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s">&quot;plugins&quot;</span><span class="p">)</span>
+
+        <span class="n">lurklib</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                <span class="n">server</span> <span class="o">=</span> <span class="n">server</span><span class="p">,</span>
+                <span class="n">port</span> <span class="o">=</span> <span class="n">port</span><span class="p">,</span>
+                <span class="n">nick</span> <span class="o">=</span> <span class="n">nick</span><span class="p">,</span>
+                <span class="n">real_name</span> <span class="o">=</span> <span class="n">real_name</span><span class="p">,</span>
+                <span class="n">password</span> <span class="o">=</span> <span class="n">password</span><span class="p">,</span>
+                <span class="n">tls</span> <span class="o">=</span> <span class="n">tls</span><span class="p">,</span>
+                <span class="n">tls_verify</span> <span class="o">=</span> <span class="n">tls_verify</span><span class="p">,</span>
+                <span class="n">encoding</span> <span class="o">=</span> <span class="n">encoding</span><span class="p">,</span>
+                <span class="n">hide_called_events</span> <span class="o">=</span> <span class="n">hide_called_events</span><span class="p">,</span>
+                <span class="n">UTC</span> <span class="o">=</span> <span class="n">UTC</span>
+                <span class="p">)</span>
+        <span class="n">util</span><span class="o">.</span><span class="n">_BOT</span> <span class="o">=</span> <span class="bp">self</span>
+        <span class="k">for</span> <span class="n">plugin</span> <span class="ow">in</span> <span class="n">plugins</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">plugger</span><span class="o">.</span><span class="n">load_plugin</span><span class="p">(</span><span class="n">plugin</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">plugger</span><span class="o">.</span><span class="n">load_plugin</span><span class="p">(</span><span class="s">&quot;base&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Bot.on_connect"><a class="viewcode-back" href="../lala.html#lala.Bot.on_connect">[docs]</a>    <span class="k">def</span> <span class="nf">on_connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">channel</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_channels</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nickserv_password</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Identifying with </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nickserv_password</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="s">&quot;NickServ&quot;</span><span class="p">,</span> <span class="s">&quot;identify </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nickserv_password</span><span class="p">,</span>
+                    <span class="n">log</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Bot.on_privmsg"><a class="viewcode-back" href="../lala.html#lala.Bot.on_privmsg">[docs]</a>    <span class="k">def</span> <span class="nf">on_privmsg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_nick</span><span class="p">:</span>
+            <span class="n">channel</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">channel</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">text</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cbprefix</span><span class="p">):</span>
+                <span class="n">command</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cbprefix</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">command</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">[</span><span class="n">command</span><span class="p">](</span>
+                        <span class="n">user</span><span class="p">,</span>
+                        <span class="n">channel</span><span class="p">,</span>  <span class="c"># channel</span>
+                        <span class="n">text</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">regex</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_regexes</span><span class="p">:</span>
+                <span class="n">match</span> <span class="o">=</span> <span class="n">regex</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">match</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">_regexes</span><span class="p">[</span><span class="n">regex</span><span class="p">](</span>
+                            <span class="n">user</span><span class="p">,</span>
+                            <span class="n">channel</span><span class="p">,</span>
+                            <span class="n">text</span><span class="p">,</span>
+                            <span class="n">match</span><span class="p">)</span>
+        <span class="k">except</span> <span class="p">(</span><span class="n">lurklib</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">_Exceptions</span><span class="o">.</span><span class="n">NotInChannel</span><span class="p">,</span>
+                <span class="n">lurklib</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">_Exceptions</span><span class="o">.</span><span class="n">NotOnChannel</span><span class="p">):</span>
+            <span class="c"># Some plugin tried to send to a channel it&#39;s not in</span>
+            <span class="c"># This should not happen, but anyway:</span>
+            <span class="k">pass</span>
+        <span class="c"># Catch TypeError: some command parameter was not correct</span>
+        <span class="c"># TODO Find a way to tell people about wrong parameters</span>
+        <span class="k">except</span> <span class="ne">TypeError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">pass</span>
+</div>
+<div class="viewcode-block" id="Bot.on_notice"><a class="viewcode-back" href="../lala.html#lala.Bot.on_notice">[docs]</a>    <span class="k">def</span> <span class="nf">on_notice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;NOTICE from </span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">text</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Bot.on_join"><a class="viewcode-back" href="../lala.html#lala.Bot.on_join">[docs]</a>    <span class="k">def</span> <span class="nf">on_join</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> joined&quot;</span> <span class="o">%</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">cb</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_join_callbacks</span><span class="p">:</span>
+            <span class="n">cb</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Bot.on_ctcp"><a class="viewcode-back" href="../lala.html#lala.Bot.on_ctcp">[docs]</a>    <span class="k">def</span> <span class="nf">on_ctcp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;VERSION&quot;</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;VERSION request from </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">notice</span><span class="p">(</span><span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">ctcp_encode</span><span class="p">(</span><span class="s">&quot;VERSION </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__version__</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Bot.on_part"><a class="viewcode-back" href="../lala.html#lala.Bot.on_part">[docs]</a>    <span class="k">def</span> <span class="nf">on_part</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> parted: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Bot.on_quit"><a class="viewcode-back" href="../lala.html#lala.Bot.on_quit">[docs]</a>    <span class="k">def</span> <span class="nf">on_quit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">reason</span> <span class="o">=</span> <span class="n">event</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s"> left: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">reason</span><span class="p">))</span>
+</div>
+<div class="viewcode-block" id="Bot.register_callback"><a class="viewcode-back" href="../lala.html#lala.Bot.register_callback">[docs]</a>    <span class="k">def</span> <span class="nf">register_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">trigger</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; Adds func to the callbacks for trigger &quot;&quot;&quot;</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Registering callback for </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="n">trigger</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_callbacks</span><span class="p">[</span><span class="n">trigger</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span>
+</div>
+<div class="viewcode-block" id="Bot.register_join_callback"><a class="viewcode-back" href="../lala.html#lala.Bot.register_join_callback">[docs]</a>    <span class="k">def</span> <span class="nf">register_join_callback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_join_callbacks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+</div>
+<div class="viewcode-block" id="Bot.register_regex"><a class="viewcode-back" href="../lala.html#lala.Bot.register_regex">[docs]</a>    <span class="k">def</span> <span class="nf">register_regex</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">regex</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_regexes</span><span class="p">[</span><span class="n">regex</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span>
+</div>
+<div class="viewcode-block" id="Bot.privmsg"><a class="viewcode-back" href="../lala.html#lala.Bot.privmsg">[docs]</a>    <span class="k">def</span> <span class="nf">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">log</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_nick</span><span class="p">,</span> <span class="n">message</span><span class="p">))</span>
+        <span class="n">lurklib</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">_handle_quit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sig</span><span class="p">,</span> <span class="n">frame</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">quit</span><span class="p">(</span><span class="s">&quot;Somebody pushed the big red button!&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Bot.mainloop"><a class="viewcode-back" href="../lala.html#lala.Bot.mainloop">[docs]</a>    <span class="k">def</span> <span class="nf">mainloop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">lurklib</span><span class="o">.</span><span class="n">Client</span><span class="o">.</span><span class="n">mainloop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">lurklib</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">_Exceptions</span><span class="o">.</span><span class="n">IRCError</span><span class="p">,</span> <span class="n">e</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">on_connect</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</div></div>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">bot</span> <span class="o">=</span> <span class="n">Bot</span><span class="p">()</span>
+    <span class="n">bot</span><span class="o">.</span><span class="n">mainloop</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">lala v0.1.4 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Wieland Hoffmann.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

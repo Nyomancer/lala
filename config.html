@@ -7,7 +7,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Welcome to lala’s documentation! &mdash; lala v0.1.4 documentation</title>
+    <title>lala config module &mdash; lala v0.1.4 documentation</title>
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript">
@@ -22,8 +22,8 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="lala v0.1.4 documentation" href="#" />
-    <link rel="next" title="lala irc bot" href="lala.html" /> 
+    <link rel="top" title="lala v0.1.4 documentation" href="index.html" />
+    <link rel="prev" title="lala utils" href="util.html" /> 
   </head>
   <body>
     <div class="related">
@@ -36,9 +36,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="lala.html" title="lala irc bot"
-             accesskey="N">next</a> |</li>
-        <li><a href="#">lala v0.1.4 documentation</a> &raquo;</li> 
+          <a href="util.html" title="lala utils"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">lala v0.1.4 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -47,24 +47,37 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="welcome-to-lala-s-documentation">
-<h1>Welcome to lala&#8217;s documentation!<a class="headerlink" href="#welcome-to-lala-s-documentation" title="Permalink to this headline">¶</a></h1>
-<p>Contents:</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="lala.html">lala irc bot</a></li>
-<li class="toctree-l1"><a class="reference internal" href="util.html">lala utils</a></li>
-<li class="toctree-l1"><a class="reference internal" href="config.html">lala config module</a></li>
+  <div class="section" id="module-lala.config">
+<span id="lala-config-module"></span><h1>lala config module<a class="headerlink" href="#module-lala.config" title="Permalink to this headline">¶</a></h1>
+<p>Config module</p>
+<dl class="function">
+<dt id="lala.config.get">
+<tt class="descclassname">lala.config.</tt><tt class="descname">get</tt><big>(</big><em>key</em>, <em>default=None</em><big>)</big><a class="reference internal" href="_modules/lala/config.html#get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.config.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the value of a config option.
+The section is the name of the calling file.</p>
+<p>If <tt class="docutils literal"><span class="pre">key</span></tt> does not exist and <tt class="docutils literal"><span class="pre">default</span></tt> is passed, the default value will be
+saved for later calls and returned.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>key</strong> &#8211; The key to lookup</li>
+<li><strong>default</strong> &#8211; Default value to return in case <tt class="docutils literal"><span class="pre">key</span></tt> does not exist</li>
 </ul>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><a class="reference internal" href="genindex.html"><em>Index</em></a></li>
-<li><a class="reference internal" href="py-modindex.html"><em>Module Index</em></a></li>
-<li><a class="reference internal" href="search.html"><em>Search Page</em></a></li>
-</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lala.config.set">
+<tt class="descclassname">lala.config.</tt><tt class="descname">set</tt><big>(</big><em>key</em>, <em>value</em><big>)</big><a class="reference internal" href="_modules/lala/config.html#set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.config.set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the <tt class="docutils literal"><span class="pre">value</span></tt> of <tt class="docutils literal"><span class="pre">key</span></tt>.
+The section is the name of the calling file.</p>
+</dd></dl>
+
 </div>
 
 
@@ -73,20 +86,12 @@
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-  <h3><a href="#">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Welcome to lala&#8217;s documentation!</a><ul>
-</ul>
-</li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
-</ul>
-
-  <h4>Next topic</h4>
-  <p class="topless"><a href="lala.html"
-                        title="next chapter">lala irc bot</a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="util.html"
+                        title="previous chapter">lala utils</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/index.txt"
+    <li><a href="_sources/config.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -116,9 +121,9 @@
           <a href="py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
         <li class="right" >
-          <a href="lala.html" title="lala irc bot"
-             >next</a> |</li>
-        <li><a href="#">lala v0.1.4 documentation</a> &raquo;</li> 
+          <a href="util.html" title="lala utils"
+             >previous</a> |</li>
+        <li><a href="index.html">lala v0.1.4 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

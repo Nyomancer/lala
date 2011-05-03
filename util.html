@@ -1,0 +1,207 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>lala utils &mdash; lala v0.1.4 documentation</title>
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.1.4',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="lala v0.1.4 documentation" href="index.html" />
+    <link rel="next" title="lala config module" href="config.html" />
+    <link rel="prev" title="lala irc bot" href="lala.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="lala config module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="lala.html" title="lala irc bot"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">lala v0.1.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-lala.util">
+<span id="lala-utils"></span><h1>lala utils<a class="headerlink" href="#module-lala.util" title="Permalink to this headline">¶</a></h1>
+<p>Helpers to be used with plugins</p>
+<dl class="class">
+<dt id="lala.util.command">
+<em class="property">class </em><tt class="descclassname">lala.util.</tt><tt class="descname">command</tt><big>(</big><em>command=None</em><big>)</big><a class="reference internal" href="_modules/lala/util.html#command"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.util.command" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Decorator to register a command. The name of the command is the
+<cite>__name__</cite> attribute of the decorated function.
+Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@command</span>
+<span class="k">def</span> <span class="nf">heyiamacommand</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>You can also pass a <tt class="docutils literal"><span class="pre">command</span></tt> parameter to overwrite the name of the
+command:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="nd">@command</span><span class="p">(</span><span class="s">&quot;yetanothercommand&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">command_with_a_really_stupid_or_insanely_long_name</span><span class="p">(</span><span class="n">user</span><span class="p">,</span>
+<span class="n">channel</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>docstring for __init__</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="lala.util.initplz">
+<tt class="descclassname">lala.util.</tt><tt class="descname">initplz</tt><big>(</big><em>f</em><big>)</big><a class="reference internal" href="_modules/lala/util.html#initplz"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.util.initplz" title="Permalink to this definition">¶</a></dt>
+<dd><p>Call <tt class="docutils literal"><span class="pre">f</span></tt> once. This can be used to set values of global variables or
+some other setup stuff.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="lala.util.is_admin">
+<tt class="descclassname">lala.util.</tt><tt class="descname">is_admin</tt><big>(</big><em>user</em><big>)</big><a class="reference internal" href="_modules/lala/util.html#is_admin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.util.is_admin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check whether <tt class="docutils literal"><span class="pre">user</span></tt> is an admin</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="lala.util.msg">
+<tt class="descclassname">lala.util.</tt><tt class="descname">msg</tt><big>(</big><em>target</em>, <em>message</em>, <em>log=True</em><big>)</big><a class="reference internal" href="_modules/lala/util.html#msg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.util.msg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Send a message to a target</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>message</strong> &#8211; The message to send</li>
+<li><strong>log</strong> &#8211; Whether or not to log the message</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="lala.util.on_join">
+<tt class="descclassname">lala.util.</tt><tt class="descname">on_join</tt><big>(</big><em>f</em><big>)</big><a class="reference internal" href="_modules/lala/util.html#on_join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.util.on_join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator for functions reacting to joins</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>f</strong> &#8211; The function which should be called on joins.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="class">
+<dt id="lala.util.regex">
+<em class="property">class </em><tt class="descclassname">lala.util.</tt><tt class="descname">regex</tt><big>(</big><em>regex</em><big>)</big><a class="reference internal" href="_modules/lala/util.html#regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.util.regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Decorator to register a regex. Example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">regexp</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">&quot;(https?://.+)\s?&quot;</span><span class="p">)</span>
+<span class="nd">@regex</span><span class="p">(</span><span class="n">regexp</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">somefunc</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">channel</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">match_obj</span><span class="p">):</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">match_obj</span></tt> is a <tt class="xref py py-class docutils literal"><span class="pre">re.MatchObject</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><strong>regex</strong> &#8211; A <tt class="xref py py-class docutils literal"><span class="pre">re.RegexObject</span></tt></td>
+</tr>
+</tbody>
+</table>
+<p>docstring for __init__</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="lala.html"
+                        title="previous chapter">lala irc bot</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="config.html"
+                        title="next chapter">lala config module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/util.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="config.html" title="lala config module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="lala.html" title="lala irc bot"
+             >previous</a> |</li>
+        <li><a href="index.html">lala v0.1.4 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2011, Wieland Hoffmann.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
