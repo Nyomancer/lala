@@ -106,9 +106,7 @@ def searchquote( user, channel, text):
             msg(channel, messages)
 
 @on_join
-def join( event):
-    user =  event[0][0]
-    channel = event[1]
+def join(user, channel):
     with db_connection:
         try:
             (id, quote) = db_connection.execute("SELECT rowid, quote FROM quotes\

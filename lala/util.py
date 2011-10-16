@@ -1,11 +1,13 @@
 """Helpers to be used with plugins"""
-import lala.config as config
 
 from types import FunctionType
 from inspect import getargspec
 from time import sleep
+from lala import config
+import logging
 
 _BOT = None
+_PM = None
 
 class command(object):
     """Decorator to register a command. The name of the command is the
@@ -29,7 +31,7 @@ class command(object):
         """docstring for __init__"""
         if isinstance(command, FunctionType):
             if _check_args(command):
-                _BOT.register_callback(command.__name__, command)
+                _PM.register_callback(command.__name__, command)
             else:
                 raise TypeError(
                     "A callback function should take exactly 3 arguments")
@@ -39,13 +41,13 @@ class command(object):
             self.cmd = command
 
     def __call__(self, func):
-        _BOT.register_callback(self.cmd, func)
+        _PM.register_callback(self.cmd, func)
 
 def on_join(f):
     """Decorator for functions reacting to joins
 
     :param f: The function which should be called on joins."""
-    _BOT.register_join_callback(f)
+    _PM.register_join_callback(f)
 
 class regex(object):
     """Decorator to register a regex. Example::
@@ -66,7 +68,7 @@ class regex(object):
     def __call__(self, func):
         """docstring for __call__"""
         if _check_args(func):
-            _BOT.register_regex(self.re, func)
+            _PM.register_regex(self.re, func)
         else:
             raise TypeError(
                 "A callback function should take exactly 3 arguments")
@@ -94,14 +96,14 @@ def msg(target, message, log=True):
             for _message in iter(message):
                 if _message == u"":
                     continue
-                _BOT.privmsg(target, _message, log)
-                sleep(0.5)
+                _message = _message.encode("utf-8")
+                _BOT.msg(target, _message)
         else:
-            _BOT.privmsg(target, message, log)
+            _BOT.msg(target, message.encode("utf-8"))
     except TypeError:
         if message == u"":
             return
-        _BOT.privmsg(target, message, log)
+        _BOT.msg(target, message.encode("utf-8"))
 
 def _check_args(f, count=3):
     args, varargs, varkw, defaults = getargspec(f)
