@@ -9,7 +9,7 @@ class LalaFactory(protocol.ReconnectingClientFactory):
         self.channel = channel
         self.nickname = nickname
         self.logger = logger
-        util._PM = PluginManager(self, "plugins")
+        util._PM = pluginmanager.PluginManager(self, "plugins")
         for plugin in plugins:
             util._PM.load_plugin(plugin)
         util._PM.load_plugin("base")
