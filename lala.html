@@ -3,17 +3,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>lala irc bot &mdash; lala v0.1.4 documentation</title>
+    <title>lala irc bot &mdash; lala 0.2 documentation</title>
+    
     <link rel="stylesheet" href="_static/default.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '',
-        VERSION:     '0.1.4',
+        VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,7 +25,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <link rel="top" title="lala v0.1.4 documentation" href="index.html" />
+    <link rel="top" title="lala 0.2 documentation" href="index.html" />
     <link rel="next" title="lala utils" href="util.html" />
     <link rel="prev" title="Welcome to lala’s documentation!" href="index.html" /> 
   </head>
@@ -42,7 +45,7 @@
         <li class="right" >
           <a href="index.html" title="Welcome to lala’s documentation!"
              accesskey="P">previous</a> |</li>
-        <li><a href="index.html">lala v0.1.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">lala 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -51,112 +54,73 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-lala">
-<span id="lala-irc-bot"></span><h1>lala irc bot<a class="headerlink" href="#module-lala" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="lala-irc-bot">
+<h1>lala irc bot<a class="headerlink" href="#lala-irc-bot" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="lala.Bot">
-<em class="property">class </em><tt class="descclassname">lala.</tt><tt class="descname">Bot</tt><big>(</big><em>server, port=None, nick='lalal', user='lalala', real_name='lalilu', password=None, tls=False, tls_verify=False, encoding='UTF-8', hide_called_events=True, UTC=False, channels=[], version='lala 0.1.4', debug=True, debugformat='%(levelname)s %(filename)s: %(funcName)s:%(lineno)d %(message)s', plugins=['last', 'quotes', 'base'], nickserv=None</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">lurklib.Client</span></tt></p>
-<p>Create a new <a class="reference internal" href="#lala.Bot" title="lala.Bot"><tt class="xref py py-class docutils literal"><span class="pre">lala.Bot</span></tt></a> instance</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>server</strong> &#8211; Server to connect to</li>
-<li><strong>port</strong> &#8211; Server port</li>
-<li><strong>nick</strong> &#8211; The Bots nick</li>
-<li><strong>user</strong> &#8211; User to specify in the <em>USER</em> message</li>
-<li><strong>real_name</strong> &#8211; Real name</li>
-<li><strong>password</strong> &#8211; Server password</li>
-<li><strong>tls</strong> &#8211; Whether or not to use TLS</li>
-<li><strong>tls_verify</strong> &#8211; Whether or not to verify the TLS certificate</li>
-<li><strong>encoding</strong> &#8211; Encoding to use</li>
-<li><strong>channels</strong> &#8211; List of channels to join after connecting</li>
-<li><strong>version</strong> &#8211; Version of the bot. Will be used in <em>CTCP VERSION</em></li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<p>replies
-:param plugins: List of plugins to load</p>
+<dt id="lala.bot.Lala">
+<em class="property">class </em><tt class="descclassname">lala.bot.</tt><tt class="descname">Lala</tt><a class="reference internal" href="_modules/lala/bot.html#Lala"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.bot.Lala" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">twisted.words.protocols.irc.IRCClient</span></tt></p>
 <dl class="method">
-<dt id="lala.Bot.mainloop">
-<tt class="descname">mainloop</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.mainloop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.mainloop" title="Permalink to this definition">¶</a></dt>
+<dt id="lala.bot.Lala.joined">
+<tt class="descname">joined</tt><big>(</big><em>channel</em><big>)</big><a class="reference internal" href="_modules/lala/bot.html#Lala.joined"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.bot.Lala.joined" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="lala.bot.Lala.lineRate">
+<tt class="descname">lineRate</tt><em class="property"> = 1</em><a class="headerlink" href="#lala.bot.Lala.lineRate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="lala.Bot.on_connect">
-<tt class="descname">on_connect</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.on_connect"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.on_connect" title="Permalink to this definition">¶</a></dt>
+<dt id="lala.bot.Lala.msg">
+<tt class="descname">msg</tt><big>(</big><em>channel</em>, <em>message</em>, <em>log</em>, <em>length=None</em><big>)</big><a class="reference internal" href="_modules/lala/bot.html#Lala.msg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.bot.Lala.msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="lala.bot.Lala.nickname">
+<tt class="descname">nickname</tt><a class="headerlink" href="#lala.bot.Lala.nickname" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="lala.Bot.on_ctcp">
-<tt class="descname">on_ctcp</tt><big>(</big><em>event</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.on_ctcp"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.on_ctcp" title="Permalink to this definition">¶</a></dt>
+<dt id="lala.bot.Lala.privmsg">
+<tt class="descname">privmsg</tt><big>(</big><em>user</em>, <em>channel</em>, <em>message</em><big>)</big><a class="reference internal" href="_modules/lala/bot.html#Lala.privmsg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.bot.Lala.privmsg" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="lala.Bot.on_join">
-<tt class="descname">on_join</tt><big>(</big><em>event</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.on_join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.on_join" title="Permalink to this definition">¶</a></dt>
+<dt id="lala.bot.Lala.signedOn">
+<tt class="descname">signedOn</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/lala/bot.html#Lala.signedOn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.bot.Lala.signedOn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="lala.Bot.on_notice">
-<tt class="descname">on_notice</tt><big>(</big><em>event</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.on_notice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.on_notice" title="Permalink to this definition">¶</a></dt>
+<dt id="lala.bot.Lala.userJoined">
+<tt class="descname">userJoined</tt><big>(</big><em>user</em>, <em>channel</em><big>)</big><a class="reference internal" href="_modules/lala/bot.html#Lala.userJoined"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.bot.Lala.userJoined" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="lala.Bot.on_part">
-<tt class="descname">on_part</tt><big>(</big><em>event</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.on_part"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.on_part" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="lala.bot.Lala.versionName">
+<tt class="descname">versionName</tt><em class="property"> = 'lala'</em><a class="headerlink" href="#lala.bot.Lala.versionName" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="lala.Bot.on_privmsg">
-<tt class="descname">on_privmsg</tt><big>(</big><em>event</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.on_privmsg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.on_privmsg" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="lala.Bot.on_quit">
-<tt class="descname">on_quit</tt><big>(</big><em>event</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.on_quit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.on_quit" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="lala.Bot.privmsg">
-<tt class="descname">privmsg</tt><big>(</big><em>target</em>, <em>message</em>, <em>log=True</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.privmsg"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.privmsg" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="lala.Bot.register_callback">
-<tt class="descname">register_callback</tt><big>(</big><em>trigger</em>, <em>func</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.register_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.register_callback" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds func to the callbacks for trigger</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="lala.Bot.register_join_callback">
-<tt class="descname">register_join_callback</tt><big>(</big><em>func</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.register_join_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.register_join_callback" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="lala.Bot.register_regex">
-<tt class="descname">register_regex</tt><big>(</big><em>regex</em>, <em>func</em><big>)</big><a class="reference internal" href="_modules/lala.html#Bot.register_regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Bot.register_regex" title="Permalink to this definition">¶</a></dt>
+<dl class="attribute">
+<dt id="lala.bot.Lala.versionNum">
+<tt class="descname">versionNum</tt><em class="property"> = '0.2~git'</em><a class="headerlink" href="#lala.bot.Lala.versionNum" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="class">
-<dt id="lala.Plugger">
-<em class="property">class </em><tt class="descclassname">lala.</tt><tt class="descname">Plugger</tt><big>(</big><em>bot</em>, <em>path</em><big>)</big><a class="reference internal" href="_modules/lala.html#Plugger"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Plugger" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dt id="lala.factory.LalaFactory">
+<em class="property">class </em><tt class="descclassname">lala.factory.</tt><tt class="descname">LalaFactory</tt><big>(</big><em>channel</em>, <em>nickname</em>, <em>plugins</em>, <em>logger</em><big>)</big><a class="reference internal" href="_modules/lala/factory.html#LalaFactory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.factory.LalaFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">twisted.internet.protocol.ReconnectingClientFactory</span></tt></p>
 <dl class="method">
-<dt id="lala.Plugger.load_plugin">
-<tt class="descname">load_plugin</tt><big>(</big><em>name</em>, <em>py=False</em><big>)</big><a class="reference internal" href="_modules/lala.html#Plugger.load_plugin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Plugger.load_plugin" title="Permalink to this definition">¶</a></dt>
+<dt id="lala.factory.LalaFactory.buildProtocol">
+<tt class="descname">buildProtocol</tt><big>(</big><em>addr</em><big>)</big><a class="reference internal" href="_modules/lala/factory.html#LalaFactory.buildProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.factory.LalaFactory.buildProtocol" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="lala.Plugger.load_plugins">
-<tt class="descname">load_plugins</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/lala.html#Plugger.load_plugins"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.Plugger.load_plugins" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="attribute">
+<dt id="lala.factory.LalaFactory.protocol">
+<tt class="descname">protocol</tt><a class="headerlink" href="#lala.factory.LalaFactory.protocol" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">Lala</span></tt></p>
+</dd></dl>
 
 </dd></dl>
 
@@ -182,7 +146,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -211,12 +175,12 @@
         <li class="right" >
           <a href="index.html" title="Welcome to lala’s documentation!"
              >previous</a> |</li>
-        <li><a href="index.html">lala v0.1.4 documentation</a> &raquo;</li> 
+        <li><a href="index.html">lala 0.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, Wieland Hoffmann.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>

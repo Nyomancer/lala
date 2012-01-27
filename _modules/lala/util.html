@@ -3,17 +3,20 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
+
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>lala.util &mdash; lala v0.1.4 documentation</title>
+    <title>lala.util &mdash; lala 0.2 documentation</title>
+    
     <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.1.4',
+        VERSION:     '0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -22,8 +25,8 @@
     <script type="text/javascript" src="../../_static/jquery.js"></script>
     <script type="text/javascript" src="../../_static/underscore.js"></script>
     <script type="text/javascript" src="../../_static/doctools.js"></script>
-    <link rel="top" title="lala v0.1.4 documentation" href="../../index.html" />
-    <link rel="up" title="lala" href="../lala.html" /> 
+    <link rel="top" title="lala 0.2 documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -35,9 +38,8 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">lala v0.1.4 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li>
-          <li><a href="../lala.html" accesskey="U">lala</a> &raquo;</li> 
+        <li><a href="../../index.html">lala 0.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -48,12 +50,13 @@
             
   <h1>Source code for lala.util</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;Helpers to be used with plugins&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">logging</span>
 <span class="kn">import</span> <span class="nn">lala.config</span> <span class="kn">as</span> <span class="nn">config</span>
 
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
+<span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">getargspec</span>
 
 <span class="n">_BOT</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="n">_PM</span> <span class="o">=</span> <span class="bp">None</span>
 
 <div class="viewcode-block" id="command"><a class="viewcode-back" href="../../util.html#lala.util.command">[docs]</a><span class="k">class</span> <span class="nc">command</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Decorator to register a command. The name of the command is the</span>
@@ -76,18 +79,24 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;docstring for __init__&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">FunctionType</span><span class="p">):</span>
-            <span class="n">_BOT</span><span class="o">.</span><span class="n">register_callback</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
-            <span class="k">return</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="n">command</span>
+            <span class="k">if</span> <span class="n">_check_args</span><span class="p">(</span><span class="n">command</span><span class="p">):</span>
+                <span class="n">_PM</span><span class="o">.</span><span class="n">register_callback</span><span class="p">(</span><span class="n">command</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">command</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                    <span class="s">&quot;A callback function should take exactly 3 arguments&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="nb">unicode</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s">&quot;The command should be either a str or unicode&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cmd</span> <span class="o">=</span> <span class="n">command</span>
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
-        <span class="n">_BOT</span><span class="o">.</span><span class="n">register_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+        <span class="n">_PM</span><span class="o">.</span><span class="n">register_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="on_join"><a class="viewcode-back" href="../../util.html#lala.util.on_join">[docs]</a><span class="k">def</span> <span class="nf">on_join</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Decorator for functions reacting to joins</span>
 
 <span class="sd">    :param f: The function which should be called on joins.&quot;&quot;&quot;</span>
-    <span class="n">_BOT</span><span class="o">.</span><span class="n">register_join_callback</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">_PM</span><span class="o">.</span><span class="n">register_join_callback</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="regex"><a class="viewcode-back" href="../../util.html#lala.util.regex">[docs]</a><span class="k">class</span> <span class="nc">regex</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Decorator to register a regex. Example::</span>
@@ -107,24 +116,41 @@
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;docstring for __call__&quot;&quot;&quot;</span>
-        <span class="n">_BOT</span><span class="o">.</span><span class="n">register_regex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
-</div>
-<div class="viewcode-block" id="initplz"><a class="viewcode-back" href="../../util.html#lala.util.initplz">[docs]</a><span class="k">def</span> <span class="nf">initplz</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Call ``f`` once. This can be used to set values of global variables or</span>
-<span class="sd">    some other setup stuff.&quot;&quot;&quot;</span>
-    <span class="n">f</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">_check_args</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="n">_PM</span><span class="o">.</span><span class="n">register_regex</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">re</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="s">&quot;A callback function should take exactly 3 arguments&quot;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="is_admin"><a class="viewcode-back" href="../../util.html#lala.util.is_admin">[docs]</a><span class="k">def</span> <span class="nf">is_admin</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Check whether ``user`` is an admin&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">config</span><span class="o">.</span><span class="n">_get</span><span class="p">(</span><span class="s">&quot;base&quot;</span><span class="p">,</span> <span class="s">&quot;admins&quot;</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="msg"><a class="viewcode-back" href="../../util.html#lala.util.msg">[docs]</a><span class="k">def</span> <span class="nf">msg</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Send a message to a target</span>
+    <span class="sd">&quot;&quot;&quot;Send a message to a target.</span>
 
-<span class="sd">    :param message: The message to send</span>
+<span class="sd">    :param target: Target to send the message to. Can be a channel or user</span>
+<span class="sd">    :param message: One or more messages to send</span>
 <span class="sd">    :param log: Whether or not to log the message</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_BOT</span><span class="o">.</span><span class="n">privmsg</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span></div>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">_message</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">_message</span> <span class="o">==</span> <span class="s">u&quot;&quot;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">_BOT</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">_message</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">_BOT</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">message</span> <span class="o">==</span> <span class="s">u&quot;&quot;</span><span class="p">:</span>
+            <span class="k">return</span>
+        <span class="n">_BOT</span><span class="o">.</span><span class="n">msg</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">message</span><span class="p">,</span> <span class="n">log</span><span class="p">)</span>
+</div>
+<span class="k">def</span> <span class="nf">_check_args</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">args</span><span class="p">,</span> <span class="n">varargs</span><span class="p">,</span> <span class="n">varkw</span><span class="p">,</span> <span class="n">defaults</span> <span class="o">=</span> <span class="n">getargspec</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">defaults</span><span class="p">:</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[:</span><span class="o">-</span><span class="n">defaults</span><span class="p">]</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="n">count</span>
 </pre></div>
 
           </div>
@@ -135,7 +161,7 @@
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
     <form class="search" action="../../search.html" method="get">
-      <input type="text" name="q" size="18" />
+      <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
@@ -158,14 +184,13 @@
         <li class="right" >
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-        <li><a href="../../index.html">lala v0.1.4 documentation</a> &raquo;</li>
-          <li><a href="../index.html" >Module code</a> &raquo;</li>
-          <li><a href="../lala.html" >lala</a> &raquo;</li> 
+        <li><a href="../../index.html">lala 0.2 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2011, Wieland Hoffmann.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
     </div>
   </body>
 </html>
