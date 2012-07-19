@@ -139,7 +139,43 @@ command:</p>
 </tr>
 </tbody>
 </table>
-<p>docstring for __init__</p>
+</dd></dl>
+
+<span class="target" id="module-lala.pluginmanager"></span><dl class="class">
+<dt id="lala.pluginmanager.PluginManager">
+<em class="property">class </em><tt class="descclassname">lala.pluginmanager.</tt><tt class="descname">PluginManager</tt><big>(</big><em>path</em><big>)</big><a class="reference internal" href="_modules/lala/pluginmanager.html#PluginManager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.pluginmanager.PluginManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<dl class="method">
+<dt id="lala.pluginmanager.PluginManager.load_plugin">
+<tt class="descname">load_plugin</tt><big>(</big><em>name</em><big>)</big><a class="reference internal" href="_modules/lala/pluginmanager.html#PluginManager.load_plugin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.pluginmanager.PluginManager.load_plugin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="lala.pluginmanager.PluginManager.on_join">
+<tt class="descname">on_join</tt><big>(</big><em>user</em>, <em>channel</em><big>)</big><a class="reference internal" href="_modules/lala/pluginmanager.html#PluginManager.on_join"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.pluginmanager.PluginManager.on_join" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls all callbacks for on_join events that were previously
+registered with <a class="reference internal" href="#lala.util.on_join" title="lala.util.on_join"><tt class="xref py py-meth docutils literal"><span class="pre">lala.util.on_join()</span></tt></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lala.pluginmanager.PluginManager.register_callback">
+<tt class="descname">register_callback</tt><big>(</big><em>trigger</em>, <em>func</em><big>)</big><a class="reference internal" href="_modules/lala/pluginmanager.html#PluginManager.register_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.pluginmanager.PluginManager.register_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds <tt class="docutils literal"><span class="pre">func</span></tt> to the callbacks for <tt class="docutils literal"><span class="pre">trigger</span></tt>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lala.pluginmanager.PluginManager.register_join_callback">
+<tt class="descname">register_join_callback</tt><big>(</big><em>func</em><big>)</big><a class="reference internal" href="_modules/lala/pluginmanager.html#PluginManager.register_join_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.pluginmanager.PluginManager.register_join_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers <tt class="docutils literal"><span class="pre">func</span></tt> as a callback for join events.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="lala.pluginmanager.PluginManager.register_regex">
+<tt class="descname">register_regex</tt><big>(</big><em>regex</em>, <em>func</em><big>)</big><a class="reference internal" href="_modules/lala/pluginmanager.html#PluginManager.register_regex"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#lala.pluginmanager.PluginManager.register_regex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers <tt class="docutils literal"><span class="pre">func</span></tt> as a callback for every message that matches
+<tt class="docutils literal"><span class="pre">regex</span></tt>.</p>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -198,7 +234,7 @@ command:</p>
     </div>
     <div class="footer">
         &copy; Copyright 2011, Wieland Hoffmann.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>

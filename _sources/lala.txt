@@ -2,5 +2,3 @@ lala irc bot
 ============
 
 .. autoclass:: lala.bot.Lala
-
-.. autoclass:: lala.factory.LalaFactory

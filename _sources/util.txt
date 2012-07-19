@@ -2,3 +2,5 @@ lala utils
 ==========
 
 .. automodule:: lala.util
+
+.. automodule:: lala.pluginmanager

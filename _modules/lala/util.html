@@ -55,8 +55,10 @@
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
 <span class="kn">from</span> <span class="nn">inspect</span> <span class="kn">import</span> <span class="n">getargspec</span>
 
+
 <span class="n">_BOT</span> <span class="o">=</span> <span class="bp">None</span>
 <span class="n">_PM</span> <span class="o">=</span> <span class="bp">None</span>
+
 
 <div class="viewcode-block" id="command"><a class="viewcode-back" href="../../util.html#lala.util.command">[docs]</a><span class="k">class</span> <span class="nc">command</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Decorator to register a command. The name of the command is the</span>
@@ -91,6 +93,7 @@
 
     <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
         <span class="n">_PM</span><span class="o">.</span><span class="n">register_callback</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cmd</span><span class="p">,</span> <span class="n">func</span><span class="p">)</span>
+
 </div>
 <div class="viewcode-block" id="on_join"><a class="viewcode-back" href="../../util.html#lala.util.on_join">[docs]</a><span class="k">def</span> <span class="nf">on_join</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Decorator for functions reacting to joins</span>
@@ -190,7 +193,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2011, Wieland Hoffmann.
-      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.2.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
     </div>
   </body>
 </html>
