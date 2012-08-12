@@ -3,34 +3,33 @@ from lala.util import command, msg
 
 class revolver:
     def __init__(self):
-        self.bullet = 1
-        self.chamber = 1
-        self.blasted = True
+        self.reload()
 
-    def reload(self, user, channel, text):
+    def reload(self):
         self.bullet = random.randint(1,6)
         self.chamber = 1
-        self.blasted = False
-        msg(channel, "Can't you see I'm reloading")
-
+        
     def shoot(self, user, channel, text):
-        if (self.chamber > 6) or self.blasted:
-            msg(channel, "Please reload")
+        if (self.chamber >= 5) and (self.chamber != self.bullet):
+            msg(channel, "%s: Chamber %s of 6: *click*" % (user, self.chamber))
+            msg(channel, "Reloading")
+            self.reload()
 
         elif (self.chamber == self.bullet):
-            msg(channel, "%s: BOOM" % user)
-            self.blasted = True
+            msg(channel, "%s: Chamber %s of 6: BOOM" % (user, self.chamber))
+            self.reload()
+            msg(channel, "Reloading")
 
         else:
-            msg(channel, "%s: *click*" % user)
+            msg(channel, "%s: Chamber %s of 6: *click*" % (user, self.chamber))
             self.chamber += 1
 
-knarre = revolver()
+gun = revolver()
 
 @command
 def reload(user, channel, text):
-    knarre.reload(user, channel, text)
-
+    gun.reload()
+    msg(channel, "Can't you see I'm reloading")
 @command
 def shoot(user, channel, text):
-    knarre.shoot(user, channel, text)
+    gun.shoot(user, channel, text)
